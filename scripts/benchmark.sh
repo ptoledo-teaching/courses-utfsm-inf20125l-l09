@@ -23,7 +23,7 @@ printf "%-8s  %-14s  %-14s\n" "N" "v1 real (s)" "v2 real (s)"
 echo "--------  --------------  --------------"
 
 for N in 1000 2000 4000 8000 16000 32000; do
-  awk -v n="$N" 'BEGIN { srand(42); print n; for(i=1;i<=n;i++) printf "%.4f\n", rand()*10000 }' > "$TMPFILE"
+  LC_NUMERIC=C awk -v n="$N" 'BEGIN { srand(42); print n; for(i=1;i<=n;i++) printf "%.4f\n", rand()*10000 }' > "$TMPFILE"
 
   T1=$( { time ( "$PROG_V1" < "$TMPFILE" > /dev/null 2>/dev/null ); } 2>&1 )
   T2=$( { time ( "$PROG_V2" < "$TMPFILE" > /dev/null 2>/dev/null ); } 2>&1 )
