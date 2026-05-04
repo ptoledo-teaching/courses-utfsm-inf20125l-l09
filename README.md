@@ -62,8 +62,6 @@ cd code
 gcc -Wall -Wextra -std=c11 -o measure_demo measure_demo.c
 ```
 
-Los warnings que aparecen son intencionales: `elapsed_seconds defined but not used` y `unused parameter 'start'` indican exactamente las partes que faltan por implementar. El programa compila y ejecuta, pero su salida aún es incompleta.
-
 ### 2. Medición externa con time sobre measure_demo
 
 Antes de escribir cualquier código, observar qué información entrega el shell sobre un programa en ejecución. Ejecutar `measure_demo` para N=1000000:
