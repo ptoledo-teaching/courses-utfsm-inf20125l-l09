@@ -227,12 +227,13 @@ gcc -Wall -Wextra -std=c11 -o navigation_v2 navigation_v2.c
 Ambos programas leen una lista de costos de saltos en el hiperespacio desde `stdin` y producen estadísticas sobre esa lista. Para poder medir su rendimiento con entradas grandes se necesita generar datos sintéticos. Esto se hace con `awk`:
 
 ```bash
-awk 'BEGIN { srand(42); print 16384; for(i=1;i<=16384;i++) printf "%.4f\n", rand()*10000 }' \
+LC_NUMERIC=C awk 'BEGIN { srand(42); print 16384; for(i=1;i<=16384;i++) printf "%.4f\n", rand()*10000 }' \
   > /tmp/random_list.txt
 ```
 
 `awk` es una herramienta de procesamiento de texto que también funciona como un lenguaje de scripting pequeño. El bloque `BEGIN { ... }` se ejecuta una sola vez antes de procesar cualquier línea de entrada; como aquí no hay archivo de entrada, es donde ocurre todo el trabajo:
 
+- `LC_NUMERIC=C`: Nos asegura que `awk` utilizará "." como separador de decimales
 - `srand(42)`: inicializa el generador de números pseudo-aleatorios con la semilla 42, igual que `srand` en C. Usar siempre la misma semilla garantiza que los números generados sean idénticos en cada ejecución
 - `print 16384`: imprime el número de segmentos en la primera línea, que es lo que el programa espera leer primero
 - `for(i=1; i<=16384; i++) printf "%.4f\n", rand()*10000`: imprime 16384 valores flotantes aleatorios entre 0 y 10000, uno por línea. `rand()` en `awk` devuelve un valor entre 0 y 1, por eso debe ser multiplicado
