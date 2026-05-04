@@ -34,6 +34,3 @@ done
 rm -f "$TMPFILE"
 
 echo "=================================================="
-echo ""
-echo "Para ver detalles de uso de memoria con N=16000:"
-echo "  awk -v n=16000 'BEGIN{srand(42);print n;for(i=1;i<=n;i++)printf \"%.4f\\n\",rand()*10000}' | /usr/bin/time -v $PROG_V1"
